@@ -136,10 +136,8 @@
     // 調整播放速度
     function adjustSpeed() {
         pauseSlideshow();
-        console.log("isplaying: ", isPlaying)
         speed = document.getElementById("speed-range").value;
         playSlideshow(); // 使用新速度重新開始播放，但不重置狀態
-        console.log("isplaying: ", isPlaying)
     }
 
     // 在切換範圍時立即更新圖片並繼續播放
