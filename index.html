@@ -135,22 +135,18 @@
 
     // 調整播放速度
     function adjustSpeed() {
+        pauseSlideshow();
         speed = document.getElementById("speed-range").value;
-        if (isPlaying) {
-            clearTimeout(timerId); // 暫停現有的計時器
-            playSlideshow(); // 使用新速度重新開始播放，但不重置狀態
-        }
+        playSlideshow(); // 使用新速度重新開始播放，但不重置狀態
     }
 
     // 在切換範圍時立即更新圖片並繼續播放
     function updateArrowImages(newRange) {
+        pauseSlideshow();
         arrowImages = newRange; // 更新圖片範圍
         currentIndex = -1; // 重置圖片索引，避免顯示錯誤
         changeArrowImage(); // 立即顯示範圍內的新圖片
-        if (isPlaying) {
-            clearTimeout(timerId); // 確保計時器不中斷
-            playSlideshow(); // 繼續播放
-        }
+        playSlideshow(); // 繼續播放
     }
 
     // 切換至範圍 1 的圖片
