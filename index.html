@@ -15,20 +15,20 @@
 </head>
 <body>
 
-<img id="arrow" alt="arrow"> <!-- 不設置 src 讓初始顯示為空 -->
+<img id="arrow" alt="arrow" src="default.png"> <!-- 添加 src 預設顯示一張圖片 -->
 
 <!-- 控制播放速度的按鈕 -->
 <div style="text-align: center; margin-top: 20px;">
-<label for="speed-range">播放速度 (毫秒):</label>
-<input type="number" id="speed-range" value="1000" min="100" step="100">
+    <label for="speed-range">播放速度 (毫秒):</label>
+    <input type="number" id="speed-range" value="1000" min="100" step="100">
 </div>
 
 <!-- 添加提示用戶的文字 -->
 <div style="text-align: center; margin-top: 20px; color: red;">
-	<p>預設：四色上下左右、1000毫秒（1秒）切換一張圖片</p>
-	<p>調整：按「暫停」按鈕→切換顏色方向、速度→按「播放」按鈕</p>
+    <p>預設：四色上下左右、1000毫秒（1秒）切換一張圖片</p>
+    <p>調整：按「暫停」按鈕→切換顏色方向、速度→按「播放」按鈕</p>
 </div>
-	
+    
 <!-- 播放和暫停按鈕 -->
 <div style="text-align: center; margin-top: 20px;">
     <button id="play-button">播放</button>
@@ -39,7 +39,7 @@
 <div style="text-align: center; margin-top: 20px;">
     <button id="set-range-1">三色左右</button>
     <button id="set-range-2">四色左右</button>
-	<button id="set-range-3">三色上下左右</button>
+    <button id="set-range-3">三色上下左右</button>
     <button id="set-range-all">四色上下左右</button>
 </div>
 
@@ -49,26 +49,26 @@
         'arrow_right_red.png', 
         'arrow_right_blue.png', 
         'arrow_right_yellow.png',
-		'arrow_right_green.png',
+        'arrow_right_green.png',
         'arrow_left_red.png',
         'arrow_left_blue.png',
         'arrow_left_yellow.png',
-		'arrow_left_green.png',
-		'arrow_up_red.png', 
+        'arrow_left_green.png',
+        'arrow_up_red.png', 
         'arrow_up_blue.png', 
         'arrow_up_yellow.png',
-		'arrow_up_green.png',
+        'arrow_up_green.png',
         'arrow_down_red.png',
         'arrow_down_blue.png',
         'arrow_down_yellow.png',
-		'arrow_down_green.png'
+        'arrow_down_green.png'
     ];
 
     const arrowImagesRange1 = [
-		'arrow_right_red.png', 
+        'arrow_right_red.png', 
         'arrow_right_blue.png', 
         'arrow_right_yellow.png',
-		'arrow_left_red.png',
+        'arrow_left_red.png',
         'arrow_left_blue.png',
         'arrow_left_yellow.png'
     ];
@@ -77,37 +77,37 @@
         'arrow_right_red.png', 
         'arrow_right_blue.png', 
         'arrow_right_yellow.png',
-		'arrow_right_green.png',
+        'arrow_right_green.png',
         'arrow_left_red.png',
         'arrow_left_blue.png',
         'arrow_left_yellow.png',
-		'arrow_left_green.png'
+        'arrow_left_green.png'
     ];
 
-	const arrowImagesRange3 = [
+    const arrowImagesRange3 = [
         'arrow_right_red.png', 
         'arrow_right_blue.png', 
         'arrow_right_yellow.png',
         'arrow_left_red.png',
         'arrow_left_blue.png',
         'arrow_left_yellow.png',
-		'arrow_up_red.png', 
+        'arrow_up_red.png', 
         'arrow_up_blue.png', 
         'arrow_up_yellow.png',
         'arrow_down_red.png',
         'arrow_down_blue.png',
         'arrow_down_yellow.png',
-	];
+    ];
 
     // 默認範圍為全部圖片
     let arrowImages = arrowImagesAll;
-	
+    
     let currentIndex = -1; // 初始化為 -1，以確保第一次選擇圖片時總是不同
     let globalTimer = null; // 全局計時器
     let isPlaying = false;
     let speed = 1000; // 初始播放速度為 1000 毫秒
 
-// 隨機切換圖片的函數，保證不連續顯示相同圖片
+    // 隨機切換圖片的函數，保證不連續顯示相同圖片
     function changeArrowImage() {
         let nextIndex;
         do {
@@ -116,23 +116,22 @@
         currentIndex = nextIndex;
         document.getElementById("arrow").src = arrowImages[currentIndex];
     }
-	
-        // 播放箭頭圖片
-     function playSlideshow() {
+    
+    // 播放箭頭圖片
+    function playSlideshow() {
         if (!isPlaying) {
             isPlaying = true; // 更新播放狀態
+            changeArrowImage(); // 在播放開始時立即顯示圖片
 
             // 使用 globalTimer 控制播放
             function showNextImage() {
                 changeArrowImage(); // 切換圖片
-
-                // 設置下一次播放，不重置計時器
-                globalTimer = setTimeout(showNextImage, speed); 
+                globalTimer = setTimeout(showNextImage, speed); // 設置下一次播放
             }
             showNextImage(); // 首次執行遞歸播放
         }
     }
-	
+    
     // 暫停箭頭圖片
     function pauseSlideshow() {
         clearTimeout(globalTimer); // 清除全局計時器
@@ -140,7 +139,7 @@
     }
 
     // 調整播放速度
-   function adjustSpeed() {
+    function adjustSpeed() {
         speed = document.getElementById("speed-range").value;
         if (isPlaying) {
             clearTimeout(globalTimer); // 暫停現有的計時器
@@ -157,10 +156,10 @@
             clearTimeout(globalTimer); // 確保計時器不中斷
             playSlideshow(); // 繼續播放
         }
-    }	
+    }
 
     // 切換至範圍 1 的圖片
-	document.getElementById("set-range-1").addEventListener("click", function() {
+    document.getElementById("set-range-1").addEventListener("click", function() {
         updateArrowImages(arrowImagesRange1); // 切換範圍
     });
 
@@ -169,7 +168,7 @@
         updateArrowImages(arrowImagesRange2); // 切換範圍
     });
 
-	// 切換至範圍 3 的圖片
+    // 切換至範圍 3 的圖片
     document.getElementById("set-range-3").addEventListener("click", function() {
         updateArrowImages(arrowImagesRange3); // 切換範圍
     });
