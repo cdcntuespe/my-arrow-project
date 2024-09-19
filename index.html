@@ -101,6 +101,7 @@
 
     // 默認範圍為全部圖片
     let arrowImages = arrowImagesAll;
+	
     let currentIndex = -1; // 初始化為 -1，以確保第一次選擇圖片時總是不同
     let globalTimer = null; // 全局計時器
     let isPlaying = false;
@@ -134,7 +135,7 @@
 	
     // 暫停箭頭圖片
     function pauseSlideshow() {
-        clearTimeout(globalTimer);
+        clearTimeout(globalTimer); // 清除全局計時器
         isPlaying = false; // 更新播放狀態
     }
 
