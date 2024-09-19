@@ -106,17 +106,7 @@
     let isPlaying = false;
     let speed = 1000; // 初始播放速度為 1000 毫秒
 
-    // 隨機切換圖片的函數，保證不連續顯示相同圖片
-    function changeArrowImage() {
-        let nextIndex;
-        do {
-            nextIndex = Math.floor(Math.random() * arrowImages.length);
-        } while (nextIndex === currentIndex); // 保證不選擇上一張圖片
-        currentIndex = nextIndex;
-        document.getElementById("arrow").src = arrowImages[currentIndex];
-    }
-
-    // 播放箭頭圖片 (使用 setTimeout 控制)
+        // 播放箭頭圖片 (使用 setTimeout 控制)
     function playSlideshow() {
         if (!isPlaying) {
             isPlaying = true; // 更新播放狀態
