@@ -111,17 +111,21 @@
         document.getElementById("arrow").src = arrowImages[currentIndex];
     }
 
-    // 播放箭頭圖片
+    // 播放箭頭圖片 (使用 setTimeout 控制)
     function playSlideshow() {
         if (!isPlaying) {
-            slideshowInterval = setInterval(changeArrowImage, speed);
             isPlaying = true; // 更新播放狀態
+            function showNextImage() {
+                changeArrowImage();
+                slideshowTimeout = setTimeout(showNextImage, speed); // 根據當前速度繼續下一張圖片
+            }
+            showNextImage();
         }
     }
 
-    // 暫停箭頭圖片
+   // 暫停箭頭圖片
     function pauseSlideshow() {
-        clearInterval(slideshowInterval);
+        clearTimeout(slideshowTimeout);
         isPlaying = false; // 更新播放狀態
     }
 
@@ -129,8 +133,8 @@
     function adjustSpeed() {
         speed = document.getElementById("speed-range").value;
         if (isPlaying) {
-            clearInterval(slideshowInterval); // 先暫停現有計時器
-            slideshowInterval = setInterval(changeArrowImage, speed); // 重新以新速度播放
+            clearTimeout(slideshowTimeout); // 暫停現有的計時器
+            playSlideshow(); // 重新以新速度播放
         }
     }
 
@@ -139,8 +143,8 @@
         arrowImages = arrowImagesRange1;
         currentIndex = -1; // 重置圖片索引，避免範圍切換後顯示錯誤
         if (isPlaying) {
-            clearInterval(slideshowInterval);
-            slideshowInterval = setInterval(changeArrowImage, speed);
+            clearTimeout(slideshowTimeout);
+            playSlideshow();
         }
     });
 
@@ -149,8 +153,8 @@
         arrowImages = arrowImagesRange2;
         currentIndex = -1; // 重置圖片索引，避免範圍切換後顯示錯誤
         if (isPlaying) {
-            clearInterval(slideshowInterval);
-            slideshowInterval = setInterval(changeArrowImage, speed);
+            clearTimeout(slideshowTimeout);
+            playSlideshow();
         }
     });
 
@@ -159,8 +163,8 @@
         arrowImages = arrowImagesRange3;
         currentIndex = -1; // 重置圖片索引，避免範圍切換後顯示錯誤
         if (isPlaying) {
-            clearInterval(slideshowInterval);
-            slideshowInterval = setInterval(changeArrowImage, speed);
+            clearTimeout(slideshowTimeout);
+            playSlideshow();
         }
     });
 
@@ -169,8 +173,8 @@
         arrowImages = arrowImagesAll;
         currentIndex = -1; // 重置圖片索引，避免範圍切換後顯示錯誤
         if (isPlaying) {
-            clearInterval(slideshowInterval);
-            slideshowInterval = setInterval(changeArrowImage, speed);
+            clearTimeout(slideshowTimeout);
+            playSlideshow();
         }
     });
 
