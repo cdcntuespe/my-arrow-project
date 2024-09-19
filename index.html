@@ -33,6 +33,7 @@
 <div style="text-align: center; margin-top: 20px;">
     <button id="set-range-1">三色左右</button>
     <button id="set-range-2">四色左右</button>
+	<button id="set-range-3">三色上下左右</button>
     <button id="set-range-all">四色上下左右</button>
 </div>
 
@@ -42,26 +43,26 @@
         'arrow_right_red.png', 
         'arrow_right_blue.png', 
         'arrow_right_yellow.png',
-	'arrow_right_green.png',
+		'arrow_right_green.png',
         'arrow_left_red.png',
         'arrow_left_blue.png',
         'arrow_left_yellow.png',
-	'arrow_left_green.png',
-	'arrow_up_red.png', 
+		'arrow_left_green.png',
+		'arrow_up_red.png', 
         'arrow_up_blue.png', 
         'arrow_up_yellow.png',
-	'arrow_up_green.png',
+		'arrow_up_green.png',
         'arrow_down_red.png',
         'arrow_down_blue.png',
         'arrow_down_yellow.png',
-	'arrow_down_green.png'
+		'arrow_down_green.png'
     ];
 
     const arrowImagesRange1 = [
-	'arrow_right_red.png', 
+		'arrow_right_red.png', 
         'arrow_right_blue.png', 
         'arrow_right_yellow.png',
-	'arrow_left_red.png',
+		'arrow_left_red.png',
         'arrow_left_blue.png',
         'arrow_left_yellow.png'
     ];
@@ -70,12 +71,27 @@
         'arrow_right_red.png', 
         'arrow_right_blue.png', 
         'arrow_right_yellow.png',
-	'arrow_right_green.png',
+		'arrow_right_green.png',
         'arrow_left_red.png',
         'arrow_left_blue.png',
         'arrow_left_yellow.png',
-	'arrow_left_green.png'
+		'arrow_left_green.png'
     ];
+
+	const arrowImagesRange3 = [
+        'arrow_right_red.png', 
+        'arrow_right_blue.png', 
+        'arrow_right_yellow.png',
+        'arrow_left_red.png',
+        'arrow_left_blue.png',
+        'arrow_left_yellow.png',
+		'arrow_up_red.png', 
+        'arrow_up_blue.png', 
+        'arrow_up_yellow.png',
+        'arrow_down_red.png',
+        'arrow_down_blue.png',
+        'arrow_down_yellow.png',
+	    ];
 
     // 默認範圍為全部圖片
     let arrowImages = arrowImagesAll;
@@ -130,6 +146,16 @@
 
     // 切換至範圍 2 的圖片
     document.getElementById("set-range-2").addEventListener("click", function() {
+        arrowImages = arrowImagesRange2;
+        currentIndex = -1; // 重置圖片索引，避免範圍切換後顯示錯誤
+        if (isPlaying) {
+            clearInterval(slideshowInterval);
+            slideshowInterval = setInterval(changeArrowImage, speed);
+        }
+    });
+
+	// 切換至範圍 3 的圖片
+    document.getElementById("set-range-3").addEventListener("click", function() {
         arrowImages = arrowImagesRange2;
         currentIndex = -1; // 重置圖片索引，避免範圍切換後顯示錯誤
         if (isPlaying) {
