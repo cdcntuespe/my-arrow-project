@@ -19,52 +19,128 @@
 
 <!-- 控制播放速度的按鈕 -->
 <div style="text-align: center; margin-top: 20px;">
-    <button onclick="changeSpeed(500)">0.5</button>
-    <button onclick="changeSpeed(1000)">1</button>
-	<button onclick="changeSpeed(1500)">1.5</button>
-    <button onclick="changeSpeed(2000)">2</button>
+	<label for="speed-range">播放速度 (毫秒):</label>
+    <input type="number" id="speed-range" value="1000" min="100" step="100">
 </div>
-	
+
+<!-- 播放和暫停按鈕 -->
+<div style="text-align: center; margin-top: 20px;">
+    <button id="play-button">播放</button>
+    <button id="pause-button">暫停</button>
+</div>
+
+<!-- 切換圖片範圍的按鈕 -->
+<div style="text-align: center; margin-top: 20px;">
+    <button id="set-range-1">範圍 1</button>
+    <button id="set-range-2">範圍 2</button>
+    <button id="set-range-all">全部圖片</button>
+</div>
+
 <script>
-const arrows = [
-        'arrow_right_red.png',
-        'arrow_right_blue.png',
-        'arrow_right_green.png',
+    // 定義不同範圍的箭頭圖片
+    const arrowImagesAll = [
+        'arrow_right_red.png', 
+        'arrow_right_blue.png', 
         'arrow_right_yellow.png',
-	'arrow_left_red.png',
+        'arrow_left_red.png',
         'arrow_left_blue.png',
-        'arrow_left_green.png',
         'arrow_left_yellow.png'
     ];
 
-let interval = 1500; //  1 秒=1000
-let currentArrow = ''; // 記錄當前顯示的箭頭
+    const arrowImagesRange1 = [
+        'arrow_right_red.png', 
+        'arrow_right_blue.png', 
+        'arrow_right_yellow.png'
+    ];
 
-// 隨機顯示非重複箭頭的函數
-    function showRandomArrow() {
-        let randomIndex;
+    const arrowImagesRange2 = [
+        'arrow_left_red.png',
+        'arrow_left_blue.png',
+        'arrow_left_yellow.png'
+    ];
+
+    // 默認範圍為全部圖片
+    let arrowImages = arrowImagesAll;
+
+    let currentIndex = -1; // 初始化為 -1，以確保第一次選擇圖片時總是不同
+    let slideshowInterval;
+    let isPlaying = false;
+    let speed = 1000; // 初始播放速度為 1000 毫秒
+
+    // 隨機切換圖片的函數，保證不連續顯示相同圖片
+    function changeArrowImage() {
+        let nextIndex;
         do {
-            randomIndex = Math.floor(Math.random() * arrows.length);
-        } while (arrows[randomIndex] === currentArrow); // 避免與當前箭頭重複
-
-        currentArrow = arrows[randomIndex]; // 更新當前箭頭
-        const arrowImg = document.getElementById('arrow');
-        arrowImg.src = currentArrow; // 顯示新的箭頭圖片
+            nextIndex = Math.floor(Math.random() * arrowImages.length);
+        } while (nextIndex === currentIndex); // 保證不選擇上一張圖片
+        currentIndex = nextIndex;
+        document.getElementById("arrow").src = arrowImages[currentIndex];
     }
 
-// 頁面加載後立即顯示一個隨機箭頭
-	window.onload = function() {
-        showRandomArrow(); // 頁面加載後立即顯示一個隨機箭頭
+    // 播放箭頭圖片
+    function playSlideshow() {
+        if (!isPlaying) {
+            slideshowInterval = setInterval(changeArrowImage, speed);
+            isPlaying = true; // 更新播放狀態
+        }
     }
 
-    let playInterval = setInterval(showRandomArrow, interval);
-
-// 修改播放速度的函數
-    function changeSpeed(newSpeed) {
-        clearInterval(playInterval);
-        interval = newSpeed;
-        playInterval = setInterval(showRandomArrow, interval);
+    // 暫停箭頭圖片
+    function pauseSlideshow() {
+        clearInterval(slideshowInterval);
+        isPlaying = false; // 更新播放狀態
     }
+
+    // 調整播放速度
+    function adjustSpeed() {
+        speed = document.getElementById("speed-range").value;
+        if (isPlaying) {
+            clearInterval(slideshowInterval); // 先暫停現有計時器
+            slideshowInterval = setInterval(changeArrowImage, speed); // 重新以新速度播放
+        }
+    }
+
+    // 切換至範圍 1 的圖片
+    document.getElementById("set-range-1").addEventListener("click", function() {
+        arrowImages = arrowImagesRange1;
+        currentIndex = -1; // 重置圖片索引，避免範圍切換後顯示錯誤
+        if (isPlaying) {
+            clearInterval(slideshowInterval);
+            slideshowInterval = setInterval(changeArrowImage, speed);
+        }
+    });
+
+    // 切換至範圍 2 的圖片
+    document.getElementById("set-range-2").addEventListener("click", function() {
+        arrowImages = arrowImagesRange2;
+        currentIndex = -1; // 重置圖片索引，避免範圍切換後顯示錯誤
+        if (isPlaying) {
+            clearInterval(slideshowInterval);
+            slideshowInterval = setInterval(changeArrowImage, speed);
+        }
+    });
+
+    // 切換至全部圖片
+    document.getElementById("set-range-all").addEventListener("click", function() {
+        arrowImages = arrowImagesAll;
+        currentIndex = -1; // 重置圖片索引，避免範圍切換後顯示錯誤
+        if (isPlaying) {
+            clearInterval(slideshowInterval);
+            slideshowInterval = setInterval(changeArrowImage, speed);
+        }
+    });
+
+    // 綁定播放按鈕
+    document.getElementById("play-button").addEventListener("click", playSlideshow);
+
+    // 綁定暫停按鈕
+    document.getElementById("pause-button").addEventListener("click", pauseSlideshow);
+
+    // 綁定速度調整輸入框
+    document.getElementById("speed-range").addEventListener("input", adjustSpeed);
+
+    // 預設自動開始播放
+    playSlideshow();
 </script>
 
 </body>
