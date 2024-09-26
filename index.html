@@ -37,9 +37,10 @@
 
 <!-- 切換圖片範圍的按鈕 -->
 <div style="text-align: center; margin-top: 20px;">
-    <button id="set-range-1">三色左右</button>
-    <button id="set-range-2">四色左右</button>
-	<button id="set-range-3">三色上下左右</button>
+    <button id="set-range-1">二色左右</button>
+	<button id="set-range-2">三色左右</button>
+    <button id="set-range-3">四色左右</button>
+	<button id="set-range-4">三色上下左右</button>
     <button id="set-range-all">四色上下左右</button>
 </div>
 
@@ -64,7 +65,14 @@
         "images/arrow_down_green.png"
     ];
 
-    const arrowImagesRange1 = [
+     const arrowImagesRange1 = [
+        "images/arrow_right_red.png", 
+        "images/arrow_right_blue.png", 
+        "images/arrow_left_red.png",
+        "images/arrow_left_blue.png",
+    ];
+	
+	const arrowImagesRange2 = [
         "images/arrow_right_red.png", 
         "images/arrow_right_blue.png", 
         "images/arrow_right_yellow.png",
@@ -73,7 +81,7 @@
         "images/arrow_left_yellow.png"
     ];
 
-    const arrowImagesRange2 = [
+    const arrowImagesRange3 = [
         "images/arrow_right_red.png", 
         "images/arrow_right_blue.png", 
         "images/arrow_right_yellow.png",
@@ -84,7 +92,7 @@
         "images/arrow_left_green.png"
     ];
     
-    const arrowImagesRange3 = [
+    const arrowImagesRange4 = [
         "images/arrow_right_red.png", 
         "images/arrow_right_blue.png", 
         "images/arrow_right_yellow.png",
@@ -161,6 +169,11 @@
 	// 切換至範圍 3 的圖片
     document.getElementById("set-range-3").addEventListener("click", function() {
         updateArrowImages(arrowImagesRange3); // 切換範圍
+    });
+
+	// 切換至範圍 4 的圖片
+    document.getElementById("set-range-4").addEventListener("click", function() {
+        updateArrowImages(arrowImagesRange4); // 切換範圍
     });
 
     // 切換至全部圖片
