@@ -145,7 +145,6 @@
     function adjustSpeed() {
         pauseSlideshow();
         speed = document.getElementById("speed-range").value;
-        playSlideshow(); // 使用新速度重新開始播放，但不重置狀態
     }
 
     // 在切換範圍時立即更新圖片並繼續播放
@@ -153,7 +152,6 @@
         pauseSlideshow();
         arrowImages = newRange; // 更新圖片範圍
         currentIndex = -1; // 重置圖片索引，避免顯示錯誤
-        playSlideshow(); // 繼續播放
     }
 
     // 切換至範圍 1 的圖片
@@ -194,4 +192,5 @@
 
 </body>
 </html>
+
 
